@@ -30,8 +30,17 @@ ruby setup.rb install --prefix=$RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 
-%{ruby_rubylibdir}/racc
-%{ruby_archdir}/racc
+%{ruby_rubylibdir}/racc/compat.rb
+%{ruby_rubylibdir}/racc/compiler.rb
+%{ruby_rubylibdir}/racc/grammar.rb
+%{ruby_rubylibdir}/racc/grammarfilescanner.rb
+%{ruby_rubylibdir}/racc/info.rb
+%{ruby_rubylibdir}/racc/iset.rb
+%{ruby_rubylibdir}/racc/output.rb
+%{ruby_rubylibdir}/racc/rubyloader.rb
+%{ruby_rubylibdir}/racc/state.rb
+%{ruby_rubylibdir}/racc/usercodeparser.rb
+%{ruby_rubylibdir}/racc/grammarfileparser.rb
 %attr(755,root,root) %{_bindir}/*
 
 %clean
