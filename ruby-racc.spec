@@ -1,5 +1,5 @@
-%define ruby_archdir    %(ruby -r rbconfig -e 'print Config::CONFIG["archdir"]')
-%define ruby_rubylibdir %(ruby -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
+%define		ruby_archdir	%(ruby -r rbconfig -e 'print Config::CONFIG["archdir"]')
+%define		ruby_rubylibdir	%(ruby -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 Summary:	Ruby yACC
 Summary(pl):	yACC dla jêzyka Ruby
 Name:		ruby-Racc
