@@ -2,7 +2,7 @@
 %define ruby_rubylibdir %(ruby -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 Summary:	Ruby yACC
 Summary(pl):	yACC dla jêzyka Ruby
-Name:		ruby-racc
+Name:		ruby-Racc
 Version:	1.4.4
 Release:	1
 License:	GPL
@@ -11,6 +11,7 @@ Source0:	http://i.loveruby.net/archive/racc/racc-%{version}-all.tar.gz
 # Source0-md5:	4a7453b056bf71dc55899607316a56fb
 URL:		http://i.loveruby.net/en/racc.html
 BuildRequires:	ruby
+Obsoletes:	ruby-racc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
