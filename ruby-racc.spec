@@ -10,7 +10,6 @@ Source0:		http://i.loveruby.net/archive/racc/racc-%{version}-all.tar.gz
 Group:		Development/Libraries
 URL: http://i.loveruby.net/en/racc.html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-BuildArchitectures:	noarch
 BuildRequires:	ruby
 
 %description
