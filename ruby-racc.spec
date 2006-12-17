@@ -1,12 +1,12 @@
 Summary:	Ruby yACC
 Summary(pl):	yACC dla jêzyka Ruby
 Name:		ruby-Racc
-Version:	1.4.4
-Release:	2
+Version:	1.4.5
+Release:	1
 License:	GPL
 Group:		Development/Libraries
 Source0:	http://i.loveruby.net/archive/racc/racc-%{version}-all.tar.gz
-# Source0-md5:	4a7453b056bf71dc55899607316a56fb
+# Source0-md5:	c23ee98abe79f051243adf04d4a82900
 URL:		http://i.loveruby.net/en/racc.html
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-modules
@@ -38,21 +38,13 @@ install -d $RPM_BUILD_ROOT%{ruby_rubylibdir}
 ruby setup.rb install \
 	--prefix=$RPM_BUILD_ROOT
 
+rm -f $RPM_BUILD_ROOT%{ruby_rubylibdir}/racc/parser.rb
+rm -f $RPM_BUILD_ROOT%{ruby_archdir}/racc/cparse.so
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%dir %{ruby_rubylibdir}/racc
-%{ruby_rubylibdir}/racc/compat.rb
-%{ruby_rubylibdir}/racc/compiler.rb
-%{ruby_rubylibdir}/racc/grammar.rb
-%{ruby_rubylibdir}/racc/grammarfilescanner.rb
-%{ruby_rubylibdir}/racc/info.rb
-%{ruby_rubylibdir}/racc/iset.rb
-%{ruby_rubylibdir}/racc/output.rb
-%{ruby_rubylibdir}/racc/rubyloader.rb
-%{ruby_rubylibdir}/racc/state.rb
-%{ruby_rubylibdir}/racc/usercodeparser.rb
-%{ruby_rubylibdir}/racc/grammarfileparser.rb
+%{ruby_rubylibdir}/racc
