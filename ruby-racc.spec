@@ -1,5 +1,5 @@
 Summary:	Ruby yACC
-Summary(pl):	yACC dla jêzyka Ruby
+Summary(pl.UTF-8):   yACC dla jÄ™zyka Ruby
 Name:		ruby-Racc
 Version:	1.4.5
 Release:	1
@@ -17,9 +17,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 RACC is a Ruby clone of YACC, to generate LALR(1) parsers in Ruby.
 
-%description -l pl
-RACC to klon YACC-a dla jêzyka Ruby, s³u¿±cy do generowania
-analizatorów LALR(1) w Rubym.
+%description -l pl.UTF-8
+RACC to klon YACC-a dla jÄ™zyka Ruby, sÅ‚uÅ¼Ä…cy do generowania
+analizatorÃ³w LALR(1) w Rubym.
 
 %prep
 %setup -q -n racc-%{version}-all
