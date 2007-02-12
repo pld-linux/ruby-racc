@@ -1,5 +1,5 @@
 Summary:	Ruby yACC
-Summary(pl.UTF-8):   yACC dla języka Ruby
+Summary(pl.UTF-8):	yACC dla języka Ruby
 Name:		ruby-Racc
 Version:	1.4.5
 Release:	1
