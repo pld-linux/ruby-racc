@@ -1,17 +1,18 @@
+%define pkgname racc
 Summary:	Ruby yACC
 Summary(pl.UTF-8):	yACC dla języka Ruby
-Name:		ruby-Racc
+Name:		ruby-%{pkgname}
 Version:	1.4.5
 Release:	1
 License:	GPL
 Group:		Development/Libraries
-Source0:	http://i.loveruby.net/archive/racc/racc-%{version}-all.tar.gz
+Source0:	http://i.loveruby.net/archive/racc/%{pkgname}-%{version}-all.tar.gz
 # Source0-md5:	c23ee98abe79f051243adf04d4a82900
 URL:		http://i.loveruby.net/en/racc.html
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-modules
-Obsoletes:	ruby-racc
 %{?ruby_mod_ver_requires_eq}
+Obsoletes:	ruby-Racc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
