@@ -24,6 +24,30 @@ RACC is a Ruby clone of YACC, to generate LALR(1) parsers in Ruby.
 RACC to klon YACC-a dla języka Ruby, służący do generowania
 analizatorów LALR(1) w Rubym.
 
+%package rdoc
+Summary:	HTML documentation for %{pkgname}
+Summary(pl.UTF-8):	Dokumentacja w formacie HTML dla %{pkgname}
+Group:		Documentation
+Requires:	ruby >= 1:1.8.7-4
+
+%description rdoc
+HTML documentation for %{pkgname}.
+
+%description rdoc -l pl.UTF-8
+Dokumentacja w formacie HTML dla %{pkgname}.
+
+%package ri
+Summary:	ri documentation for %{pkgname}
+Summary(pl.UTF-8):	Dokumentacja w formacie ri dla %{pkgname}
+Group:		Documentation
+Requires:	ruby
+
+%description ri
+ri documentation for %{pkgname}.
+
+%description ri -l pl.UTF-8
+Dokumentacji w formacie ri dla %{pkgname}.
+
 %prep
 %setup -q -c
 %{__tar} xf %{SOURCE0} -O data.tar.gz | %{__tar} xz
@@ -36,15 +60,20 @@ ruby setup.rb config \
 
 ruby setup.rb setup
 
+rdoc --ri --op ri lib
+rdoc --op rdoc lib
+rm -r ri/{Array,Object,String}
+rm ri/created.rid
+
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{ruby_rubylibdir}
+install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
 
 ruby setup.rb install \
 	--prefix=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{ruby_rubylibdir}/racc/parser.rb
-rm -f $RPM_BUILD_ROOT%{ruby_archdir}/racc/cparse.so
+cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
+cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -54,3 +83,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{ruby_rubylibdir}/racc.rb
 %{ruby_rubylibdir}/racc
+%attr(755,root,root) %{ruby_archdir}/racc/cparse.so
+
+%files rdoc
+%defattr(644,root,root,755)
+%{ruby_rdocdir}/%{name}-%{version}
+
+%files ri
+%defattr(644,root,root,755)
+%{ruby_ridir}/Racc
