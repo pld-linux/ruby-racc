@@ -3,7 +3,7 @@ Summary:	Ruby yACC
 Summary(pl.UTF-8):	yACC dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.4.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		Development/Libraries
 Source0:	http://i.loveruby.net/archive/racc/%{pkgname}-%{version}-all.tar.gz
