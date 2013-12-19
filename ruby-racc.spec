@@ -3,16 +3,16 @@ Summary:	Ruby yACC
 Summary(pl.UTF-8):	yACC dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.4.6
-Release:	1
+Release:	2
 License:	GPL
 Group:		Development/Libraries
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
 # Source0-md5:	c61adac8cd59877e6abe37f5fc12e9a5
 URL:		http://i.loveruby.net/en/racc.html
-BuildRequires:	rpmbuild(macros) >= 1.277
+BuildRequires:	rpm-rubyprov
+BuildRequires:	rpmbuild(macros) >= 1.665
 BuildRequires:	ruby-devel
 BuildRequires:	ruby-modules
-%{?ruby_mod_ver_requires_eq}
 Provides:	ruby-Racc
 Obsoletes:	ruby-Racc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -49,14 +49,12 @@ ri documentation for %{pkgname}.
 Dokumentacji w formacie ri dla %{pkgname}.
 
 %prep
-%setup -q -c
-%{__tar} xf %{SOURCE0} -O data.tar.gz | %{__tar} xz
-find -newer ChangeLog -o -print | xargs touch --reference %{SOURCE0}
+%setup -q -n %{pkgname}-%{version}
 
 %build
 ruby setup.rb config \
-	--site-ruby=%{ruby_rubylibdir} \
-	--so-dir=%{ruby_archdir}
+	--site-ruby=%{ruby_vendorlibdir} \
+	--so-dir=%{ruby_vendorarchdir}
 
 ruby setup.rb setup
 
@@ -64,10 +62,11 @@ rdoc --ri --op ri lib
 rdoc --op rdoc lib
 rm -r ri/{Array,Object,String}
 rm ri/created.rid
+rm ri/cache.ri
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
+install -d $RPM_BUILD_ROOT{%{ruby_ridir},%{ruby_rdocdir}}
 
 ruby setup.rb install \
 	--prefix=$RPM_BUILD_ROOT
@@ -80,10 +79,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
-%{ruby_rubylibdir}/racc.rb
-%{ruby_rubylibdir}/racc
-%attr(755,root,root) %{ruby_archdir}/racc/cparse.so
+%attr(755,root,root) %{_bindir}/racc
+%attr(755,root,root) %{_bindir}/racc2y
+%attr(755,root,root) %{_bindir}/y2racc
+%dir %{ruby_vendorarchdir}/racc
+%attr(755,root,root) %{ruby_vendorarchdir}/racc/cparse.so
+%{ruby_vendorlibdir}/racc.rb
+%{ruby_vendorlibdir}/racc
 
 %files rdoc
 %defattr(644,root,root,755)
