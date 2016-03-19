@@ -3,7 +3,7 @@ Summary:	Ruby yACC
 Summary(pl.UTF-8):	yACC dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.4.6
-Release:	4
+Release:	5
 License:	GPL
 Group:		Development/Libraries
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
