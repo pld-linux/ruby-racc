@@ -3,7 +3,7 @@ Summary:	Ruby yACC
 Summary(pl.UTF-8):	yACC dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.4.6
-Release:	6
+Release:	7
 License:	GPL
 Group:		Development/Libraries
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
@@ -13,6 +13,7 @@ BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.665
 BuildRequires:	ruby-devel
 BuildRequires:	ruby-modules
+BuildRequires:	setup.rb >= 3.4.1-6
 Provides:	ruby-Racc
 Obsoletes:	ruby-Racc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -56,6 +57,8 @@ Dokumentacji w formacie ri dla %{pkgname}.
 
 %prep
 %setup -q -n %{pkgname}-%{version}
+
+cp %{_datadir}/setup.rb .
 
 %build
 ruby setup.rb config \
