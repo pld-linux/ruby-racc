@@ -2,18 +2,16 @@
 Summary:	Ruby yACC
 Summary(pl.UTF-8):	yACC dla języka Ruby
 Name:		ruby-%{pkgname}
-Version:	1.4.6
-Release:	10
-License:	GPL
+Version:	1.8.1
+Release:	1
+License:	Ruby or BSD-2-Clause
 Group:		Development/Libraries
-Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
-# Source0-md5:	c61adac8cd59877e6abe37f5fc12e9a5
-URL:		http://i.loveruby.net/en/racc.html
+Source0:	https://rubygems.org/downloads/%{pkgname}-%{version}.gem
+# Source0-md5:	53c37a31570fccd3fdfcf12007b987b6
+URL:		https://github.com/ruby/racc
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.665
 BuildRequires:	ruby-devel
-BuildRequires:	ruby-modules
-BuildRequires:	setup.rb >= 3.4.1-6
 Provides:	ruby-Racc
 Obsoletes:	ruby-Racc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -53,28 +51,31 @@ Dokumentacji w formacie ri dla %{pkgname}.
 
 %prep
 %setup -q -n %{pkgname}-%{version}
-
-cp %{_datadir}/setup.rb .
+%{__sed} -i -e '1 s,#!.*ruby,#!%{__ruby},' bin/racc
 
 %build
-ruby setup.rb config \
-	--site-ruby=%{ruby_vendorlibdir} \
-	--so-dir=%{ruby_vendorarchdir}
+%__gem_helper spec
 
-ruby setup.rb setup
+cd ext/racc/cparse
+%{__ruby} extconf.rb
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -fPIC"
 
+cd ../../../
 rdoc --ri --op ri lib
 rdoc --op rdoc lib
-rm -r ri/{Array,Object,String}
-rm ri/created.rid
-rm ri/cache.ri
+rm -f ri/created.rid ri/cache.ri
+rm -rf ri/{Array,Object,String}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_ridir},%{ruby_rdocdir}}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_vendorarchdir}/racc,%{ruby_specdir},%{_bindir},%{ruby_ridir},%{ruby_rdocdir}}
 
-ruby setup.rb install \
-	--prefix=$RPM_BUILD_ROOT
+cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
+cp -a bin/* $RPM_BUILD_ROOT%{_bindir}
+install -p ext/racc/cparse/cparse.so $RPM_BUILD_ROOT%{ruby_vendorarchdir}/racc
+cp -p %{pkgname}-%{version}.gemspec $RPM_BUILD_ROOT%{ruby_specdir}
 
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
@@ -84,13 +85,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc BSDL COPYING ChangeLog README.rdoc TODO
 %attr(755,root,root) %{_bindir}/racc
-%attr(755,root,root) %{_bindir}/racc2y
-%attr(755,root,root) %{_bindir}/y2racc
 %dir %{ruby_vendorarchdir}/racc
 %attr(755,root,root) %{ruby_vendorarchdir}/racc/cparse.so
 %{ruby_vendorlibdir}/racc.rb
 %{ruby_vendorlibdir}/racc
+%{ruby_specdir}/%{pkgname}-%{version}.gemspec
 
 %files rdoc
 %defattr(644,root,root,755)
