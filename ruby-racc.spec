@@ -3,7 +3,7 @@ Summary:	Ruby yACC
 Summary(pl.UTF-8):	yACC dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.8.1
-Release:	2
+Release:	3
 License:	Ruby or BSD-2-Clause
 Group:		Development/Libraries
 Source0:	https://rubygems.org/downloads/%{pkgname}-%{version}.gem
